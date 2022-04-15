@@ -23,17 +23,17 @@ class PartyTests(unittest.TestCase):
         self.assertIn(b"Please RSVP", result.data)
         self.assertNotIn(b"Party Details", result.data)
 
-        print(result)
 
     def test_rsvp(self):
         result = self.client.post("/rsvp",
                                     data={"name": "Jane",
                                         "email": "jane@jane.com"},
                                     follow_redirects=True)
-        # FIXME: Once we RSVP, we should see the party details, but
+        # Once we RSVP, we should see the party details, but
         # not the RSVP form
-        print("FIXME")
-
+        self.assertIn(b"Party Details", result.data)
+        self.assertNotIn(b"Please RSVP", result.data)
+        
 
 class PartyTestsDatabase(unittest.TestCase):
     """Flask tests that use the database."""
