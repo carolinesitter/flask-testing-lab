@@ -41,15 +41,18 @@ class PartyTestsDatabase(unittest.TestCase):
     def setUp(self):
         """Stuff to do before every test."""
 
+        # get flask test client
         self.client = app.test_client()
+
+        #show flask errors that happen during test
         app.config['TESTING'] = True
 
-        # Connect to test database (uncomment when testing database)
-        # connect_to_db(app, "postgresql:///testdb")
+        # Connect to test database
+        connect_to_db(app, "postgresql:///testdb")
 
-        # Create tables and add sample data (uncomment when testing database)
-        # db.create_all()
-        # example_data()
+        # Create tables and add sample data
+        db.create_all()
+        example_data()
 
     def tearDown(self):
         """Do at end of every test."""
