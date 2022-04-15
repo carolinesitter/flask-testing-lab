@@ -57,13 +57,15 @@ class PartyTestsDatabase(unittest.TestCase):
     def tearDown(self):
         """Do at end of every test."""
 
-        # (uncomment when testing database)
-        # db.session.close()
-        # db.drop_all()
+        # close the session and drop all tables, leaving testdb empty
+        db.session.close()
+        db.drop_all()
 
     def test_games(self):
-        # FIXME: test that the games page displays the game from example_data()
-        print("FIXME")
+        # test that the games page displays the game from example_data()
+
+        result = self.client.get("/games")
+        self.assertIn(b"Princes of Florence", result.data)
 
 
 if __name__ == "__main__":
